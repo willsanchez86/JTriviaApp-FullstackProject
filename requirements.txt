@@ -13,6 +13,8 @@ dominate==2.6.0
 filelock==3.6.0
 Flask==2.0.3
 Flask-Bootstrap==3.3.7.1
+Flask-SQLAlchemy==2.5.1
+greenlet==1.1.2
 h11==0.13.0
 hyperlink==21.0.0
 idna==3.3
@@ -43,6 +45,7 @@ service-identity==21.1.0
 six==1.16.0
 sniffio==1.2.0
 sortedcontainers==2.4.0
+SQLAlchemy==1.4.32
 tldextract==3.2.0
 trio==0.20.0
 trio-websocket==0.9.2
