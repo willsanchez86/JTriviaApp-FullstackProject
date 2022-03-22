@@ -1,229 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeopardy</title>
-
-    <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% include "header.html" %}
 
 
-</head>
-<body>
+<!--    <div class="container" id="game-board">-->
+<!--        &lt;!&ndash;MODAL HTML - Dynamically changed withquestions&ndash;&gt;-->
+<!--        <div>-->
+<!--            <div class="bs-example">-->
+<!--                &lt;!&ndash; Modal HTML &ndash;&gt;-->
+<!--                <div id="myModal" class="modal fade">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+<!--                                <h4 class="modal-title">Modal Window</h4>-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
+<!--                            </div>-->
+<!--                            <div class="modal-footer">-->
+<!--                                <button id="closesubmit" type="button" class="btn btn-primary clickable"-->
+<!--                                        onclick="submit()">Submit-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-  <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <a class="navbar-brand" href="">JEOPARDY</a>
-            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">About Me</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Coding Challenges</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-    <!-- <nav class="bg-light border navbar navbar-expand-md navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/"><span class="red">Jeopardy</span></a>
-            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar"> -->
-                <!-- {% if session["user_id"] %}
-                    <ul class="navbar-nav me-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/quote">Quote</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/deposit">Deposit</a></li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
-                    </ul>
-                {% else %} -->
-                    <!-- <ul class="navbar-nav ms-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
-                    </ul> -->
-                <!-- {% endif %} -->
-            <!-- </div>
-        </div>
-    </nav> -->
-    
-    <div>
-    
-        <div id="game-board">
-            <!--MODAL HTML - Dynamically changed withquestions-->
-            <div>
-                <div class="bs-example">
-                    <!-- Modal HTML -->
-                    <div id="myModal" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h4 class="modal-title">Modal Window</h4>
-                                </div>
-                                <div class="modal-body">
-                                </div>
-                                <div class="modal-footer">
-                                    <button id="closesubmit" type="button" class="btn btn-primary clickable"
-                                            onclick="submit()">Submit
-                                    </button>
-                                </div>
-                            </div>
-                        </div>s
-                    </div>
-                </div>
-            </div>
-        
-            <div class="row">
-                <div class="col-2 category"><span>Random Category Multiple Lines</span></div>
-                <div class="col-2 category"><span>HOW ARE WE EVEN RELATED?</span></div>
-                <div class="col-2 category"><span>ARTHUR CONAN DOYLE CHARACTERS</span></div>
-                <div class="col-2 category"><span>RANDOM CATEGORY</span></div>
-                <div class="col-2 category"><span>RANDOM CATEGORY</span></div>
-                <div class="col-2 category"><span>RANDOM CATEGORY</span></div>
-            </div>
-            <!-- Row of Questions -->
-            <div class="row">
-                <div class="col-2 question">
-                    <button type="button" class="button">$200</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$200</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$200</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$200</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$200</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$200</button>
-                </div>
-            </div>
-            <!-- Row of Questions -->
-            <div class="row">
-                <div class="col-2 question">
-                    <button type="button" class="button">$400</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$400</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$400</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$400</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$400</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$400</button>
-                </div>
-            </div>
-            <!-- Row of Questions -->
-            <div class="row">
-                <div class="col-2 question">
-                    <button type="button" class="button">$600</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$600</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$600</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$600</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$600</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$600</button>
-                </div>
-            </div>
-            <!-- Row of Questions -->
-            <div class="row">
-                <div class="col-2 question">
-                    <button type="button" class="button">$800</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$800</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$800</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$800</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$800</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$800</button>
-                </div>
-            </div>
-            <!-- Row of Questions -->
-            <div class="row">
-                <div class="col-2 question">
-                    <button type="button" class="button">$1000</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$1000</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$1000</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$1000</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$1000</button>
-                </div>
-                <div class="col-2 question">
-                    <button type="button" class="button">$1000</button>
-                </div>
-            </div>
-        </div>
+<!--        <div class="row">-->
+<!--            <div class="col-2 category"><span>Random Category Multiple Lines</span></div>-->
+<!--            <div class="col-2 category"><span>HOW ARE WE EVEN RELATED?</span></div>-->
+<!--            <div class="col-2 category"><span>ARTHUR CONAN DOYLE CHARACTERS</span></div>-->
+<!--            <div class="col-2 category"><span>RANDOM CATEGORY</span></div>-->
+<!--            <div class="col-2 category"><span>RANDOM CATEGORY</span></div>-->
+<!--            <div class="col-2 category"><span>RANDOM CATEGORY</span></div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Row of Questions &ndash;&gt;-->
+<!--        <div class="row">-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$200</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$200</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$200</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$200</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$200</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$200</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Row of Questions &ndash;&gt;-->
+<!--        <div class="row">-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$400</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$400</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$400</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$400</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$400</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$400</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Row of Questions &ndash;&gt;-->
+<!--        <div class="row">-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$600</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$600</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$600</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$600</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$600</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$600</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Row of Questions &ndash;&gt;-->
+<!--        <div class="row">-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$800</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$800</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$800</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$800</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$800</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$800</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Row of Questions &ndash;&gt;-->
+<!--        <div class="row">-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$1000</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$1000</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$1000</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$1000</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$1000</button>-->
+<!--            </div>-->
+<!--            <div class="col-2 question">-->
+<!--                <button type="button" class="button">$1000</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <!-- Javascript  -->
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
