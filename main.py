@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
 from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func, select, distinct
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
@@ -65,7 +66,7 @@ class Category(db.Model):
     num_questions = db.Column(db.Integer, nullable=False)
 
 
-class Questions(db.Model):
+class Question(db.Model):
     __tablename__ = "questions"
     question_id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(255), nullable=False)
@@ -89,13 +90,77 @@ def logout():
     return redirect(url_for('/'))
 
 
-@app.route('/new_game')
+@app.route('/new_game', methods=["GET", "POST"])
 def new_game():
-    # Retrieve 5 random categories from table, and reformat for use
-    cat_query = random.sample(Category.query.all(), 6)
-    game_categories = [str(cat).strip("<Category>")[1:] for cat in cat_query]
-    return render_template('game.html', categories=game_categories)
+    # Join the tables to search for categories
+    # cat_query = db.session.execute(
+    #     select(Question.question, Question.answer, Category.category).
+    #     join(Category, Question.category == Category.category).
+    #     order_by(func.random()).
+    #     group_by(Category.category).
+    #     limit(6)
+    # )
+    # categories = [row.category for row in cat_query]
+    #
+    # game_dict = {item: [] for item in categories}
+    #
+    # # Search for questions/answers that match categories
+    # for item in categories:
+    #     question_query = db.session.execute(
+    #         select(Question.question, Question.answer, Question.category).
+    #         where(Question.category == item).
+    #         limit(5)
+    #     )
+    #     game_dict[item] = [{'question': row.question, 'answer': row.answer} for row in question_query]
 
+    return render_template('game.html')
+
+
+#
+#
+@app.route('/start_game', methods=['GET', 'POST'])
+def start_game():
+    # Join the tables to search for categories
+    cat_query = db.session.execute(
+        select(Question.question, Question.answer, Category.category).
+        join(Category, Question.category == Category.category).
+        order_by(func.random()).
+        group_by(Category.category).
+        limit(6)
+    )
+    unique_categories = [row.category for row in cat_query]
+
+    game_dict = {item: [] for item in unique_categories}
+
+    # Search for questions/answers that match categories
+    for item in unique_categories:
+        question_query = db.session.execute(
+            select(Question.question, Question.answer, Question.category).
+            where(Question.category == item).
+            limit(5)
+        )
+        game_dict[item] = [{'question': row.question, 'answer': row.answer} for row in question_query]
+
+    # Creates a list containing 5 lists, each of 8 items, all set to 0
+    w, h = 6, 6
+    game_board = [[0 for x in range(w)] for y in range(h)]
+
+    for i in range(len(unique_categories)):
+        game_board[0][i] = unique_categories[i]
+
+    # Add questions for each category
+    for i in range(len(unique_categories)):
+        question_query = db.session.execute(
+            select(Question.question, Question.answer, Question.category).
+            where(Question.category == unique_categories[i]).
+            limit(5)
+        )
+        # Create separate list because returned query object is not iterable
+        questions = [{'question': row.question, 'answer': row.answer} for row in question_query]
+        for j in range(len(questions)):
+            game_board[j+1][i] = questions[j]
+
+    return jsonify(game_board)  # serialize and use JSON headers
 
 if __name__ == "__main__":
     app.run (host='0.0.0.0', port=5000, debug=True)
