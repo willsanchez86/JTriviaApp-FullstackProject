@@ -101,17 +101,7 @@ def new_game():
     #     limit(6)
     # )
     # categories = [row.category for row in cat_query]
-    #
-    # game_dict = {item: [] for item in categories}
-    #
-    # # Search for questions/answers that match categories
-    # for item in categories:
-    #     question_query = db.session.execute(
-    #         select(Question.question, Question.answer, Question.category).
-    #         where(Question.category == item).
-    #         limit(5)
-    #     )
-    #     game_dict[item] = [{'question': row.question, 'answer': row.answer} for row in question_query]
+
 
     return render_template('game.html')
 
@@ -130,21 +120,11 @@ def start_game():
     )
     unique_categories = [row.category for row in cat_query]
 
-    game_dict = {item: [] for item in unique_categories}
-
-    # Search for questions/answers that match categories
-    for item in unique_categories:
-        question_query = db.session.execute(
-            select(Question.question, Question.answer, Question.category).
-            where(Question.category == item).
-            limit(5)
-        )
-        game_dict[item] = [{'question': row.question, 'answer': row.answer} for row in question_query]
-
     # Creates a list containing 5 lists, each of 8 items, all set to 0
     w, h = 6, 6
     game_board = [[0 for x in range(w)] for y in range(h)]
 
+    # Load the Categories in the first row of game_board
     for i in range(len(unique_categories)):
         game_board[0][i] = unique_categories[i]
 
@@ -161,6 +141,9 @@ def start_game():
             game_board[j+1][i] = questions[j]
 
     return jsonify(game_board)  # serialize and use JSON headers
+
+
+
 
 if __name__ == "__main__":
     app.run (host='0.0.0.0', port=5000, debug=True)
