@@ -1,6 +1,10 @@
 {% include "header.html" %}
-
+<!--Temporary Placement Open-->
 <a class="start_round" href="#">START ROUND</a>
+<h1>$<span id="player-score">0</span></h1>
+<!--Temporary Placement Close-->
+
+
 <div class="container" id="game-board">
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
@@ -21,12 +25,13 @@
                     </div>
                 </div>
 
-                <div class="row">
-                <div class="answer-form form-group">
-                    <input type="text" class="form__input" name="username" autofocus placeholder="Enter your answer">
-                    <button class="form__button" type="Submit">SUBMIT</button>
-                </div>
-                </div>
+                    <form autocomplete="off" id="answerForm">
+                        <div class="autocomplete" style="width:300px;">
+                          <input id="myInput" type="text" name="myAnswer" placeholder="Enter your Answer">
+                            <p id="message">You've guessed correctly!</p>
+                        </div>
+                        <input type="submit" id="submit">
+                    </form>
 
                 <div class="modal-footer">
                     <h1>(INSERT PLAYER INFO)</h1>
@@ -46,172 +51,172 @@
     <!-- Row of Questions -->
     <div class="row">
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="1"
-                    data-column="0">$200
+            <button type="button" class="qbutton" data-row="1"
+                    data-column="0" data-backdrop="static" data-keyboard="false">$200
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="1"
-                    data-column="1">$200
+            <button type="button" class="qbutton" data-row="1"
+                    data-column="1" data-backdrop="static" data-keyboard="false">$200
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="1"
-                    data-column="2">$200
+            <button type="button" class="qbutton" data-row="1"
+                    data-column="2" data-backdrop="static" data-keyboard="false">$200
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="1"
-                    data-column="3">$200
+            <button type="button" class="qbutton" data-row="1"
+                    data-column="3" data-backdrop="static" data-keyboard="false">$200
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="1"
-                    data-column="4">$200
+            <button type="button" class="qbutton" data-row="1"
+                    data-column="4" data-backdrop="static" data-keyboard="false">$200
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="1"
-                    data-column="5">$200
-            </button>
-        </div>
-    </div>
-    <!-- Row of Questions -->
-    <div class="row">
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="2"
-                    data-column="0">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="2"
-                    data-column="1">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="2"
-                    data-column="2">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="2"
-                    data-column="3">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="2"
-                    data-column="4">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="2"
-                    data-column="5">$400
+            <button type="button" class="qbutton" data-row="1"
+                    data-column="5" data-backdrop="static" data-keyboard="false">$200
             </button>
         </div>
     </div>
     <!-- Row of Questions -->
     <div class="row">
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="3"
-                    data-column="0">$600
+            <button type="button" class="qbutton" data-row="2"
+                    data-column="0" data-backdrop="static" data-keyboard="false">$400
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="3"
-                    data-column="1">$600
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="2"
+                    data-column="1" data-backdrop="static" data-keyboard="false">$400
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="3"
-                    data-column="2">$600
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="2"
+                    data-column="2" data-backdrop="static" data-keyboard="false">$400
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="3"
-                    data-column="3">$600
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="2"
+                    data-column="3" data-backdrop="static" data-keyboard="false">$400
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="3"
-                    data-column="4">$600
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="2"
+                    data-column="4" data-backdrop="static" data-keyboard="false">$400
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="3"
-                    data-column="5">$600
-            </button>
-        </div>
-    </div>
-    <!-- Row of Questions -->
-    <div class="row">
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="4"
-                    data-column="0">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="4"
-                    data-column="1">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="4"
-                    data-column="2">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="4"
-                    data-column="3">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="4"
-                    data-column="4">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="4"
-                    data-column="5">$800
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="2"
+                    data-column="5" data-backdrop="static" data-keyboard="false">$400
             </button>
         </div>
     </div>
     <!-- Row of Questions -->
     <div class="row">
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="5"
-                    data-column="0">$1000
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="3"
+                    data-column="0" data-backdrop="static" data-keyboard="false">$600
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="5"
-                    data-column="1">$1000
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="3"
+                    data-column="1" data-backdrop="static" data-keyboard="false">$600
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="5"
-                    data-column="2">$1000
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="3"
+                    data-column="2" data-backdrop="static" data-keyboard="false">$600
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="5"
-                    data-column="3">$1000
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="3"
+                    data-column="3" data-backdrop="static" data-keyboard="false">$600
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="5"
-                    data-column="4">$1000
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="3"
+                    data-column="4" data-backdrop="static" data-keyboard="false">$600
             </button>
         </div>
         <div class="col-2 question">
-            <button type="button" class="button" data-toggle="modal" data-target="#myModal" data-row="5"
-                    data-column="5">$1000
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="3"
+                    data-column="5" data-backdrop="static" data-keyboard="false">$600
+            </button>
+        </div>
+    </div>
+    <!-- Row of Questions -->
+    <div class="row">
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="4"
+                    data-column="0" data-backdrop="static" data-keyboard="false">$800
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="4"
+                    data-column="1" data-backdrop="static" data-keyboard="false">$800
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="4"
+                    data-column="2" data-backdrop="static" data-keyboard="false">$800
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="4"
+                    data-column="3" data-backdrop="static" data-keyboard="false">$800
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="4"
+                    data-column="4" data-backdrop="static" data-keyboard="false">$800
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="4"
+                    data-column="5" data-backdrop="static" data-keyboard="false">$800
+            </button>
+        </div>
+    </div>
+    <!-- Row of Questions -->
+    <div class="row">
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="5"
+                    data-column="0" data-backdrop="static" data-keyboard="false">$1000
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="5"
+                    data-column="1" data-backdrop="static" data-keyboard="false">$1000
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="5"
+                    data-column="2" data-backdrop="static" data-keyboard="false">$1000
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="5"
+                    data-column="3" data-backdrop="static" data-keyboard="false">$1000
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="5"
+                    data-column="4" data-backdrop="static" data-keyboard="false">$1000
+            </button>
+        </div>
+        <div class="col-2 question">
+            <button type="button" class="qbutton" data-toggle="modal" data-target="#myModal" data-row="5"
+                    data-column="5" data-backdrop="static" data-keyboard="false">$1000
             </button>
         </div>
     </div>
 </div>
 
 
-<!--    &lt;!&ndash; Javascript  &ndash;&gt;-->
+    <!-- Javascript  -->
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 <!--    &lt;!&ndash;    Boostrap 4&ndash;&gt;-->
 <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"-->

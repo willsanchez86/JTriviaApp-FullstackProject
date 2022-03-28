@@ -3,32 +3,15 @@ from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, select, distinct
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
+
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 import random
 import os
 
+
 # Generate secret key for Flask App configuration
 # print(os.urandom(24))
 
-##----------------------------AUTOMAP TO CREATE CLASSES FOR PREVIOUSLY CREATED TABLES ---------------------------##
-# Base = automap_base()
-#
-# # engine, suppose it has two tables 'user' and 'address' set up
-# engine = create_engine("sqlite:///jeopardy.db")
-#
-# # reflect the tables
-# Base.prepare(engine, reflect=True)
-#
-# # mapped classes are now created with names by default
-# # matching that of the table name.
-# Questions = Base.classes.questions
-# Categories = Base.classes.categories
-#
-# session = Session(engine)
-#-------------------------------------------------------------------------------------------------------------------#
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 Bootstrap(app)
@@ -90,26 +73,17 @@ def logout():
     return redirect(url_for('/'))
 
 
-@app.route('/new_game', methods=["GET", "POST"])
+@app.route('/new_game')
 def new_game():
-    # Join the tables to search for categories
-    # cat_query = db.session.execute(
-    #     select(Question.question, Question.answer, Category.category).
-    #     join(Category, Question.category == Category.category).
-    #     order_by(func.random()).
-    #     group_by(Category.category).
-    #     limit(6)
-    # )
-    # categories = [row.category for row in cat_query]
-
-
     return render_template('game.html')
 
 
-#
-#
 @app.route('/start_game', methods=['GET', 'POST'])
 def start_game():
+    # Retrieve list of answers to autocomplete the answerInput filter
+    answer_query = db.session.execute(select(Question.answer).limit(500))
+    answers_list = [row.answer for row in answer_query]
+
     # Join the tables to search for categories
     cat_query = db.session.execute(
         select(Question.question, Question.answer, Category.category).
@@ -139,8 +113,14 @@ def start_game():
         questions = [{'question': row.question, 'answer': row.answer} for row in question_query]
         for j in range(len(questions)):
             game_board[j+1][i] = questions[j]
+            if questions[j]['answer'] not in answers_list:
+                answers_list.append(questions[j]['answer'])
 
-    return jsonify(game_board)  # serialize and use JSON headers
+    game_data = {
+        'board': game_board,
+        'filter_answers': answers_list
+    }
+    return jsonify(game_data)  # serialize and use JSON headers
 
 
 

@@ -132,12 +132,13 @@ body {
 .question {
   padding: 0.2rem;
   justify-self: center;
+  background-color: darkblue;
   width: 100%
   height: 12vh;
 }
 
 /* BUTTONS */
-.button {
+.qbutton {
   justify-self: center;
   width: 100%;
   background-color: darkblue;
@@ -180,111 +181,69 @@ body {
     width: 50%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/*.navbar-toggle {
-  border: solid 1px black;
+#message {
+    display: none;
+    font-size: 16px;
 }
 
-#topjlogo {
+
+
+
+
+/***************************************************************************************
+*    Title: <title of program/source code>
+*    Author: <author(s) names>
+*    Date: 3/25/022
+*    Availability: https://www.w3schools.com/howto/howto_js_autocomplete.asp
+*
+***************************************************************************************/
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    margin-left: auto;
+    display: inline-block;
+    }
+    input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+    }
+    input[type=text] {
+    background-color: #282828;
     width: 100%;
-    max-width: 600px;
-}
-/* @font-face {
-  font-family: "Korinna BT";
-    src: url('fonts/Korinna Bold BT.eot');
-    src: url('fonts/Korinna Bold BTeot?#iefix') format("embedded-opentype"),
-    url('fonts/Korinna Bold BT.woff') format("woff"),
-    url('fonts/Korinna Bold BT.ttf') format("truetype"),
-    url('fonts/Korinna Bold BT.svg#Korinna BT') format("svg");
-} */
-/* .question {
-  justify-self: center;
-  width: 100%
-} */
-/* .panel-heading {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-} */
+    color: #fff;
+    }
+    input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+    }
+    .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    font-size: 16px;
+    }
+    .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #282828;
+    border-bottom: 1px solid #d4d4d4;
+    }
+    .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: black;
+    }
+    .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+    }
 
-/*.gridstyling {
-    display: grid;
-    grid-template-rows: [ten] 1fr [fifty] 1fr [onehundred] 1fr [fivehundred] 1fr [onethousand] 1fr;
-    grid-auto-flow: column;
-    grid-gap: 10px;
-}
-.qcategory-title, .question, .scoretally {
-  font-family: Korinna BT;
-}
-.container-fluid {
-  max-width: 900px
-}
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#score1 {
-  color: green;
-  font-size: 30px;
-}
-.navbar-header {
-  max-width: 900px;
-}
-/* .button {
-  height: 100%;
-  width: 100%;
-} */
-/*.btn-outline-secondary {
-  display: flex;
-  flex-direction: row;
-}
-.top {
-  height: 120px;
-  width: 100%;
-  background-color: red;
-}
-.playeropt {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100vw;
-  align-content: center;
-}
-/*.question {*/
-    /*height:100px;*/
-    /*vertical-align: middle;*/
-    /*text-align: center;*/
-    /*font-size: 1.5em;*/
-    /*padding-top: 15px;*/
-    /*cursor: pointer;*/
-/*}*/
-/*.gametitle {
-  display: flex;
-  align-items: center;
-}
-#headline {
-  font-size: 30px;
-}
-.panel-footer {
-  display: flex;
-  justify-content: space-between;
-}
-h4 {
-  font-size: 35px;
-}
-h1 {
-  color: red;
-}
-p {
-font-size: 20px;
-}
+
