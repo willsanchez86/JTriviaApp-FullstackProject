@@ -65,10 +65,9 @@ async function playGame() {
             let newCheckAnswer = function() { checkAnswer(e, currentSquare); };
             modalForm.addEventListener('submit', function(){
                 answerInput.disabled = true;
-                currentSquare.textContent = '';
+                currentSquare.style.opacity = 0;
                 currentSquare.disabled = true;
             });
-//            modalForm.removeEventListener('submit', newCheckAnswer);
         }
     })
 }
@@ -161,10 +160,6 @@ function checkAnswer(e, currentSquare) {
 
     document.querySelector('#player-score').textContent = `${newTotal}`;
     localStorage.setItem('score', newTotal);
-    answerInput.disabled = true;
-    currentSquare.textContent = '';
-    currentSquare.disabled = true;
-
 }
 
 function setMessage(msg, color) {
