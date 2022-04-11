@@ -11,9 +11,10 @@ var answerInput = document.querySelector('#myInput');
 var modalTimer = document.querySelector('#question-timer span');
 var filter = document.querySelector('#filter');
 var message = document.querySelector('#message');
-playerScore = document.querySelector('#player-score');
+
 localStorage.setItem('score', '0');
 
+console.log(myModal);
 // Submit Answer
 document.querySelector('#answerForm').addEventListener('submit', checkAnswer);
 document.querySelector(".start_round").addEventListener('click', playGame);
@@ -35,10 +36,14 @@ async function playGame() {
     // Question Sequence Initiates
     game_board.addEventListener('click', function(e) {
         // Retrieve answers list from template
-        var answersList = JSON.parse(localStorage.getItem('filter_answers'));
-        autocomplete(document.getElementById("myInput"), answersList);
+        const answersList = JSON.parse(localStorage.getItem('filter_answers'));
+//        autocomplete(document.getElementById("myInput"), answersList);
         if(e.target.className === 'qbutton') {
             var currentSquare = e.target;
+            autocomplete(document.getElementById("myInput"), answersList);
+            localStorage.setItem('prize', e.target.textContent.replace('$', ''));
+
+
             //Reset Modal
             answerInput.value = '';
             message.style.display = 'none';
@@ -47,7 +52,8 @@ async function playGame() {
             answerInput.disabled =false;
             var modalSubmitButton = document.getElementById('submit');
             modalSubmitButton.disabled = false;
-            localStorage.setItem('prize', e.target.textContent.replace('$', ''));
+
+
 
 
             // Display Modal Question
@@ -55,12 +61,20 @@ async function playGame() {
             myModal.show();
             // Start 30 second countdown
             timer(modalTimer);
-            var modalForm = document.querySelector('#answerForm');
-            var newCheckAnswer = function() { checkAnswer(e, currentSquare, playerScore, modalSubmitButton); };
-            modalForm.addEventListener('submit', newCheckAnswer, false);
+            let modalForm = document.querySelector('#answerForm');
+            let newCheckAnswer = function() { checkAnswer(e, currentSquare); };
+            modalForm.addEventListener('submit', function(){
+                answerInput.disabled = true;
+                currentSquare.textContent = '';
+                currentSquare.disabled = true;
+            });
+//            modalForm.removeEventListener('submit', newCheckAnswer);
         }
     })
 }
+
+
+
 // Store the Game in Local Storage
 function storeGameInLocalStorage (gameData){
     // Store Comprehensive Answers List
@@ -126,7 +140,7 @@ function timer(modalTimer) {
 }
 
 // Submit Answer & Check Results
-function checkAnswer(e, currentSquare, playerScore, modalSubmitButton) {
+function checkAnswer(e, currentSquare) {
     e.preventDefault();
     var reward = parseInt(localStorage.getItem('prize'));
     var totalScore = parseInt(localStorage.getItem('score'));
@@ -134,32 +148,22 @@ function checkAnswer(e, currentSquare, playerScore, modalSubmitButton) {
 
     if(answerInput.value === '') {
         setMessage('Enter your answer before submitting', 'red');
+    } else {
+        // Correct Answer
+        if(answerInput.value.toUpperCase() === modalAnswer.textContent) {
+            setMessage(`${answerInput.value.toUpperCase()} is Correct!`, 'green');
+            var newTotal = reward + totalScore;
+        } else { // Incorrect Answer
+            setMessage(`WRONG! The correct answer is ${modalAnswer.textContent}`, 'red');
+            var newTotal = totalScore - reward;
+        }
     }
 
-    // Correct Answer
-    if(answerInput.value.toUpperCase() === modalAnswer.textContent) {
-        modalSubmitButton.disabled = true;
-        setMessage(`${answerInput.value.toUpperCase()} is Correct!`, 'green');
-        var newTotal = reward + totalScore;
-        playerScore.textContent = `${newTotal}`;
-        localStorage.setItem('score', newTotal);
-        console.log(playerScore.textContent);
-        answerInput.disabled = true;
-        currentSquare.textContent = '';
-        currentSquare.disabled = true;
-
-    }
-    // Incorrect Answer
-    if (answerInput.value.toUpperCase() != modalAnswer.textContent) {
-        modalSubmitButton.disabled = true;
-        setMessage(`WRONG! The correct answer is ${modalAnswer.textContent}`, 'red');
-        var newTotal = totalScore - reward;
-        playerScore.textContent = `${newTotal}`;
-        localStorage.setItem('score', newTotal);
-        answerInput.disabled = true;
-        currentSquare.textContent = '';
-        currentSquare.disabled = true;
-    }
+    document.querySelector('#player-score').textContent = `${newTotal}`;
+    localStorage.setItem('score', newTotal);
+    answerInput.disabled = true;
+    currentSquare.textContent = '';
+    currentSquare.disabled = true;
 
 }
 
@@ -167,22 +171,6 @@ function setMessage(msg, color) {
         message.textContent = msg;
         message.style.color = color;
         message.style.display = 'block';
-}
-
-
-
-// Filter Answers
-function filterAnswers(e, answersList) {
-  var text = e.target.value.toLowerCase();
-  console.log(text);
-  answersList['answers'].forEach(function(answer){
-//    console.log(answer);
-//    if(answer.toLowerCase().indexOf(text) != -1) {
-//      task.style.display = 'block';
-//    } else {
-//      task.style.display = 'none';
-//    }
-  });
 }
 
 

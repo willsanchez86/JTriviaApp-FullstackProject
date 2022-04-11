@@ -118,7 +118,7 @@ body {
 .category span {
 
   color: white;
-  font-size: calc(5px + 0.8vw + 0.8vh);
+  font-size: calc(5px + 0.7vw + 0.7vh);
   font-weight: bold;
   transform: translateY(0%);
   overflow: hidden;
@@ -173,12 +173,6 @@ body {
 #question-timer {
     color: yellow;
     margin-left: auto;
-}
-
-.answer-form {
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
 }
 
 #message {
