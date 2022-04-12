@@ -1,4 +1,4 @@
-var game_board = document.querySelector('#game-board');
+
 var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
     backdrop: 'static',
     keyboard: false,
@@ -29,8 +29,9 @@ async function playGame() {
     storeGameInLocalStorage(gameData);
 
     // Generate game board
-    var categories = document.querySelectorAll(".category span");
-    var gameButtons = document.querySelectorAll('.qbutton');
+    let game_board = document.querySelector('#game-board');
+    let categories = document.querySelectorAll(".category span");
+    let gameButtons = document.querySelectorAll('.qbutton');
     generateGameBoard(categories, gameButtons);
 
     // Question Sequence Initiates
@@ -64,7 +65,6 @@ async function playGame() {
             let modalForm = document.querySelector('#answerForm');
             let newCheckAnswer = function() { checkAnswer(e, currentSquare); };
             modalForm.addEventListener('submit', function(){
-                answerInput.disabled = true;
                 currentSquare.style.opacity = 0;
                 currentSquare.disabled = true;
             });
@@ -156,10 +156,10 @@ function checkAnswer(e, currentSquare) {
             setMessage(`WRONG! The correct answer is ${modalAnswer.textContent}`, 'red');
             var newTotal = totalScore - reward;
         }
+        document.querySelector('#player-score').textContent = `${newTotal}`;
+        localStorage.setItem('score', newTotal);
+        answerInput.disabled = true;
     }
-
-    document.querySelector('#player-score').textContent = `${newTotal}`;
-    localStorage.setItem('score', newTotal);
 }
 
 function setMessage(msg, color) {
