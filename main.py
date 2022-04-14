@@ -36,6 +36,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String (100), unique=True, nullable=False)
     email = db.Column(db.String (100), unique=True, nullable=False)
     password = db.Column(db.String (100), nullable=False)
+    # Attributes below will be updated in later version that includes multiplayer online gameplay
     games_won = db.Column(db.Integer, nullable=False)
     games_played = db.Column(db.Integer, nullable=False)
     total_winnings = db.Column(db.Integer, nullable=False)
@@ -62,10 +63,15 @@ class Question(db.Model):
 def home():
     return render_template('index.html')
 
-
+@app.route('/login', methods=["GET", "POST"])
 def login():
-    pass
+    # if request.method == "POST":
 
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
 
 @app.route('/logout')
 def logout():

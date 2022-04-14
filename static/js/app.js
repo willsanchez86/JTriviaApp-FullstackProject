@@ -9,7 +9,7 @@ var modalAnswer = document.querySelector('.modal-answer');
 var answerInput = document.querySelector('#myInput');
 var modalTimer = document.querySelector('#question-timer span');
 var filter = document.querySelector('#filter');
-var message = document.querySelector('#message');
+var message = document.querySelector('.message');
 
 localStorage.setItem('score', '0');
 
@@ -54,8 +54,6 @@ async function playGame() {
             modalSubmitButton.disabled = false;
 
 
-
-
             // Display Modal Question
             displayQuestion(currentSquare, categories);
             myModal.show();
@@ -87,9 +85,11 @@ async function playGame() {
             let modalForm = document.querySelector('#answerForm');
             let newCheckAnswer = function() { checkAnswer(e, currentSquare); };
             modalForm.addEventListener('submit', function(){
-                currentSquare.style.opacity = 0;
-                currentSquare.disabled = true;
-                clearInterval(timer);
+                if(answerInput.value !== '') {
+                    currentSquare.style.opacity = 0;
+                    currentSquare.disabled = true;
+                    clearInterval(timer);
+                }
             });
         }
     })
