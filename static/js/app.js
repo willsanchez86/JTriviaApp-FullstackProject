@@ -1,4 +1,3 @@
-
 var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
     backdrop: 'static',
     keyboard: false,
@@ -61,12 +60,36 @@ async function playGame() {
             displayQuestion(currentSquare, categories);
             myModal.show();
             // Start 30 second countdown
-            timer(modalTimer);
+            let countSeconds = 30;
+            let timer = setInterval(() => {
+                countSeconds--;
+                if(countSeconds < 10) {
+                    modalTimer.textContent = `0${countSeconds}`;
+                } else {
+                    modalTimer.textContent = String(countSeconds);
+                }
+                if(countSeconds <= 0) {
+                    document.getElementById('question-timer').style.color = 'red';
+                    setMessage(`Out of Time! The correct answer is ${modalAnswer.textContent}`, 'red');
+                    updateScore(subtract);
+                    answerInput.disabled = true;
+                    clearInterval(timer);
+                }
+            }, 1000);
+
+            // Clear timer interval when modal is closed
+            document.querySelector('.close').addEventListener('click', function() {
+                clearInterval(timer);
+            })
+
+
+            // Form Submission
             let modalForm = document.querySelector('#answerForm');
             let newCheckAnswer = function() { checkAnswer(e, currentSquare); };
             modalForm.addEventListener('submit', function(){
                 currentSquare.style.opacity = 0;
                 currentSquare.disabled = true;
+                clearInterval(timer);
             });
         }
     })
@@ -121,29 +144,10 @@ function displayQuestion(currentSquare, categories) {
     modalAnswer.textContent = currentSquare.getAttribute('answer');
 }
 
-// TImer
-function timer(modalTimer) {
-    var countSeconds = parseInt(modalTimer.textContent);
-    var countDown = setInterval(()=>{
-        countSeconds--;
-        if(countSeconds < 10) {
-            modalTimer.textContent = `0${countSeconds}`;
-        } else {
-            modalTimer.textContent = String(countSeconds);
-        }
-        if(countSeconds <= 0) {
-            document.getElementById('question-timer').style.color = 'red';
-            clearInterval(countDown);
-        }
-    },1000)
-}
 
 // Submit Answer & Check Results
 function checkAnswer(e, currentSquare) {
     e.preventDefault();
-    var reward = parseInt(localStorage.getItem('prize'));
-    var totalScore = parseInt(localStorage.getItem('score'));
-    console.log(`Prize: ${reward}`);
 
     if(answerInput.value === '') {
         setMessage('Enter your answer before submitting', 'red');
@@ -151,13 +155,11 @@ function checkAnswer(e, currentSquare) {
         // Correct Answer
         if(answerInput.value.toUpperCase() === modalAnswer.textContent) {
             setMessage(`${answerInput.value.toUpperCase()} is Correct!`, 'green');
-            var newTotal = reward + totalScore;
+            updateScore(add);
         } else { // Incorrect Answer
             setMessage(`WRONG! The correct answer is ${modalAnswer.textContent}`, 'red');
-            var newTotal = totalScore - reward;
+            updateScore(subtract);
         }
-        document.querySelector('#player-score').textContent = `${newTotal}`;
-        localStorage.setItem('score', newTotal);
         answerInput.disabled = true;
     }
 }
@@ -167,6 +169,26 @@ function setMessage(msg, color) {
         message.style.color = color;
         message.style.display = 'block';
 }
+
+function updateScore(func) {
+    let totalScore = parseInt(localStorage.getItem('score'));
+    let reward = parseInt(localStorage.getItem('prize'));
+    let newTotal = func(totalScore, reward);
+    document.querySelector('#player-score').textContent = `${newTotal}`;
+    localStorage.setItem('score', newTotal);
+}
+
+// Helper Functions to calculate new score
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+
+
 
 
 /***************************************************************************************
