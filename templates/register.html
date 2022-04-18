@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% include "header.html" %}
 
-</body>
-</html>
+
+<div class="form-center">
+    <form action="{{ url_for('register') }}" method="post" class="form-center" id="register" >
+        <h1 class="form__title">Register</h1>
+        <div class="form__input-group">
+            <input type="text" class="form__input" name="username">
+            <span class="floating-label">Email</span>
+            <p class="message" id="registerUser">Please Enter a value</p>
+        </div>
+        <div class="form__input-group">
+            <input type="text" class="form__input" name="username">
+            <span class="floating-label">Username</span>
+            <p class="message" id="registerEmail">Please Enter a value</p>
+        </div>
+        <div class="form__input-group">
+            <div class="input-group">
+                <input type="password" class="form__input" name="password" id="registerPassword">
+                <div class="input-group-addon">
+                    <i class="fa-solid fa-eye" id="togglePassword"></i>
+                </div>
+            </div>
+            <span class="floating-label">Password</span>
+            <p class="message" id="loginPassword">Please enter a value</p>
+        </div>
+        <button class="form__button" type="submit">Create Account</button>
+        <p class="form__text text-center">
+            <a href="#" class="form__link">Forgot your password?</a>
+        </p>
+        <p class="form__text text-center">
+            <span>Already have an account?</span>
+            <a href="{{ url_for('register') }}" class="form__link">Log In</a>
+        </p>
+    </form>
+</div>
+
+<!-- Javascript  -->
+    <script>
+<!--        document.querySelector('.form__button').addEventListener('blur', function(e) {-->
+<!--            const messages = document.querySelectorAll('.message');-->
+<!--            messages.forEach(function(message) {-->
+<!--                message.style.display = 'none';-->
+<!--                const input = message.previousElementSibling;-->
+<!--                if(input.value === '') {-->
+<!--                    message.style.display = 'block';-->
+<!--                    message.style.color = '#cc3333';-->
+<!--                    e.preventDefault();-->
+<!--                }-->
+<!--            })-->
+<!--        });-->
+    </script>

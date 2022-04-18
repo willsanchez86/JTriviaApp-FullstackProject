@@ -2,11 +2,10 @@ body {
   font-size: 100%;
   height: 100vh;
   background-color: black;
+  color: $ffffff;
   --color-primary: #009579;
   --color-primary-dark: #007f67;
-  --color-secondary: #252c6a;
-  --color-error: #cc3333;
-  --color-success: #4bb544;
+  --color-secondary: #2580cf;
 }
 
 .navbar {
@@ -18,13 +17,16 @@ body {
         }
 
 
+/*------------------------LOGIN.HTML. REGISTER.HTML------------------------*/
+
 .form-center {
-    margin-top: 2rem;
+    margin-top: 5rem;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    width: 320px;
     max-width: 400px;
     justify-content: center;
+    color: #ffffff;
 }
 
 .form__title {
@@ -32,21 +34,8 @@ body {
     text-align: center;
 }
 
-.form__message {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.form__message--success {
-    color: var(--color-success);
-}
-
-.form__message--error {
-    color: var(--color-error);
-}
-
 .form__input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .form__input {
@@ -57,15 +46,80 @@ body {
     border-radius: var(--border-radius);
     border: 1px solid #dddddd;
     outline: none;
-    background: #eeeeee;
+    background-color: #282828;
+    color: #fff;
 }
 
 .form__input:focus {
     border-color: var(--color-primary);
-    background: #ffffff;
+}
+
+
+/* ----------------------------------- */
+input[type=text]:focus~ .floating-label,
+input[type=text]not(:focus):valid~.floating-label {
+    padding: 2px;
+    top: 8px;
+    bottom: 10px;
+    left: 10px;
+    font-size: 11px;
+    opacity: 1;
+    color: #ffffff;
+}
+
+input[type=password]:focus~ .floating-label,
+input[type=password]:not(:focus):valid~.floating-label {
+    padding: 2px;
+    top: 0px;
+    bottom: 10px;
+    left: 10px;
+    font-size: 11px;
+    opacity: 1;
+    color: #ffffff;
+}
+
+.form__input-group:focus-within .floating-label,
+ input:not(:focus):valid~.floating-label {
+    padding: 2px;
+    top: 8px;
+    bottom: 10px;
+    left: 10px;
+    font-size: 11px;
+    opacity: 1;
+    color: #ffffff;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  left: 10px;
+  top: 20px;
+  transition: 0.2s ease all;
+  color: #867979;
+}
+
+.form__input-group {
+  position: relative; /*  make label relate to div  */
+  padding-top: 10px;  /*  make space for label      */
+}
+/* ----------------------------------- */
+
+
+.input-group-addon i {
+    margin-top: 15px;
+    margin-left: -30px;
+    cursor: pointer;
+    position: absolute;
+    font-size: large;
+    color: #6c757d;
+  }
+
+#togglePassword:hover {
+    color: #ffffff;
 }
 
 .form__button {
+    margin-top: 0.5rem;
     width: 100%;
     padding: 1rem 2rem;
     font-weight: bold;
@@ -82,6 +136,9 @@ body {
     background: var(--color-primary-dark);
 }
 
+.form__text {
+    color:#ffffff;
+}
 .form__link {
     color: var(--color-secondary);
     text-decoration: none;
@@ -92,6 +149,9 @@ body {
     text-decoration: underline;
 }
 
+
+
+/*------------------------GAME.HTML------------------------*/
 
 #game-board {
   background-color: black;
@@ -116,7 +176,6 @@ body {
 }
 
 .category span {
-
   color: white;
   font-size: calc(5px + 0.7vw + 0.7vh);
   font-weight: bold;
@@ -136,6 +195,8 @@ body {
   width: 100%
   height: 12vh;
 }
+
+.score { color: white}
 
 /* BUTTONS */
 .qbutton {

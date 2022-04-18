@@ -65,8 +65,11 @@ def home():
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    # if request.method == "POST":
-
+    if request.method == "POST":
+        username = request.form.get('username')
+        password = request.form.get('password')
+        print(username, password)
+        return redirect(url_for('home'))
     return render_template('login.html')
 
 @app.route('/register')

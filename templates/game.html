@@ -1,7 +1,7 @@
 {% include "header.html" %}
 <!--Temporary Placement Open-->
 <a class="start_round" href="#">START ROUND</a>
-<h1>$<span id="player-score">0</span></h1>
+<h1 class="score">$<span id="player-score">0</span></h1>
 <!--Temporary Placement Close-->
 
 
@@ -25,7 +25,7 @@
                 <form autocomplete="off" id="answerForm">
                     <div class="autocomplete" style="width:300px;">
                       <input id="myInput" type="text" name="myAnswer" placeholder="Enter your Answer">
-                        <p class="message">You've guessed correctly!</p>
+                        <p class="message" id="modalMessage">You've guessed correctly!</p>
                     </div>
                     <input type="submit" id="submit">
                 </form>

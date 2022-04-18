@@ -6,17 +6,21 @@ var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
 var modalTitle = document.querySelector('.modal-title');
 var modalQuestion = document.querySelector('.modal-question');
 var modalAnswer = document.querySelector('.modal-answer');
-var answerInput = document.querySelector('#myInput');
+var answerInput = document.getElementById('myInput');
 var modalTimer = document.querySelector('#question-timer span');
-var filter = document.querySelector('#filter');
-var message = document.querySelector('.message');
+var filter = document.getElementById('filter');
+
 
 localStorage.setItem('score', '0');
 
-console.log(myModal);
-// Submit Answer
-document.querySelector('#answerForm').addEventListener('submit', checkAnswer);
+//--------------------Event Listeners--------------------//
+
+// Start New Game
 document.querySelector(".start_round").addEventListener('click', playGame);
+// Check Modal Answer
+document.getElementById('answerForm').addEventListener('submit', checkAnswer);
+
+
 
 async function playGame() {
 
@@ -46,12 +50,11 @@ async function playGame() {
 
             //Reset Modal
             answerInput.value = '';
+            const message = document.querySelector('#modalMessage');
             message.style.display = 'none';
             modalTimer.textContent = '30';
             document.getElementById('question-timer').style.color = 'yellow';
             answerInput.disabled =false;
-            var modalSubmitButton = document.getElementById('submit');
-            modalSubmitButton.disabled = false;
 
 
             // Display Modal Question
@@ -68,7 +71,7 @@ async function playGame() {
                 }
                 if(countSeconds <= 0) {
                     document.getElementById('question-timer').style.color = 'red';
-                    setMessage(`Out of Time! The correct answer is ${modalAnswer.textContent}`, 'red');
+                    setMessage(message, `Out of Time! The correct answer is ${modalAnswer.textContent}`, 'red');
                     updateScore(subtract);
                     answerInput.disabled = true;
                     clearInterval(timer);
@@ -95,7 +98,7 @@ async function playGame() {
     })
 }
 
-
+//--------------------GAME FUNCTIONS--------------------//
 
 // Store the Game in Local Storage
 function storeGameInLocalStorage (gameData){
@@ -148,26 +151,26 @@ function displayQuestion(currentSquare, categories) {
 // Submit Answer & Check Results
 function checkAnswer(e, currentSquare) {
     e.preventDefault();
-
+    const message = document.querySelector('#modalMessage');
     if(answerInput.value === '') {
-        setMessage('Enter your answer before submitting', 'red');
+        setMessage(message, 'Enter your answer before submitting', 'red');
     } else {
         // Correct Answer
         if(answerInput.value.toUpperCase() === modalAnswer.textContent) {
-            setMessage(`${answerInput.value.toUpperCase()} is Correct!`, 'green');
+            setMessage(message, `${answerInput.value.toUpperCase()} is Correct!`, 'green');
             updateScore(add);
         } else { // Incorrect Answer
-            setMessage(`WRONG! The correct answer is ${modalAnswer.textContent}`, 'red');
+            setMessage(message, `WRONG! The correct answer is ${modalAnswer.textContent}`, 'red');
             updateScore(subtract);
         }
         answerInput.disabled = true;
     }
 }
 
-function setMessage(msg, color) {
-        message.textContent = msg;
-        message.style.color = color;
-        message.style.display = 'block';
+function setMessage(element, msg, color) {
+        element.textContent = msg;
+        element.style.color = color;
+        element.style.display = 'block';
 }
 
 function updateScore(func) {
