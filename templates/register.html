@@ -5,29 +5,26 @@
     <form action="{{ url_for('register') }}" method="post" class="form-center" id="register" >
         <h1 class="form__title">Register</h1>
         <div class="form__input-group">
-            <input type="text" class="form__input" name="username">
+            <input type="text" class="form__input" name="email" id="email" required>
             <span class="floating-label">Email</span>
-            <p class="message" id="registerUser">Please Enter a value</p>
+            <p class="message" id="emailMessage">Please Enter a value</p>
         </div>
         <div class="form__input-group">
-            <input type="text" class="form__input" name="username">
+            <input type="text" class="form__input" name="username" id="username" required>
             <span class="floating-label">Username</span>
-            <p class="message" id="registerEmail">Please Enter a value</p>
+            <p class="message" id="userMessage">Please Enter a value</p>
         </div>
-        <div class="form__input-group">
+        <div class="form__input-group" >
             <div class="input-group">
-                <input type="password" class="form__input" name="password" id="registerPassword">
+                <input type="password" class="form__input" name="password" id="password" onfocus="showIcon(this)" required>
+                <span class="floating-label">Password</span>
                 <div class="input-group-addon">
                     <i class="fa-solid fa-eye" id="togglePassword"></i>
                 </div>
             </div>
-            <span class="floating-label">Password</span>
-            <p class="message" id="loginPassword">Please enter a value</p>
+            <p class="message" id="passwordMessage">Please enter a value</p>
         </div>
         <button class="form__button" type="submit">Create Account</button>
-        <p class="form__text text-center">
-            <a href="#" class="form__link">Forgot your password?</a>
-        </p>
         <p class="form__text text-center">
             <span>Already have an account?</span>
             <a href="{{ url_for('register') }}" class="form__link">Log In</a>
@@ -35,18 +32,23 @@
     </form>
 </div>
 
+<!-- Modal -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                        <p>Passwords must meet the following requirements:</p>
+                        <ul class="requirements">
+                            <li id="upper">Has at least one uppercase letter</li>
+                            <li id="lower">Has at least one lowercase letter</li>
+                            <li id="digit">Has at least one digit</li>
+                            <li id="special">Has at least one special character ($, %, @...)</li>
+                            <li id="min8">Is at least 8 characters long</li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!-- Javascript  -->
-    <script>
-<!--        document.querySelector('.form__button').addEventListener('blur', function(e) {-->
-<!--            const messages = document.querySelectorAll('.message');-->
-<!--            messages.forEach(function(message) {-->
-<!--                message.style.display = 'none';-->
-<!--                const input = message.previousElementSibling;-->
-<!--                if(input.value === '') {-->
-<!--                    message.style.display = 'block';-->
-<!--                    message.style.color = '#cc3333';-->
-<!--                    e.preventDefault();-->
-<!--                }-->
-<!--            })-->
-<!--        });-->
-    </script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>

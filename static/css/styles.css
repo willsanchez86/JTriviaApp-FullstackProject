@@ -57,7 +57,7 @@ body {
 
 /* ----------------------------------- */
 input[type=text]:focus~ .floating-label,
-input[type=text]not(:focus):valid~.floating-label {
+input[type=text]:not(:focus):valid~.floating-label {
     padding: 2px;
     top: 8px;
     bottom: 10px;
@@ -78,16 +78,6 @@ input[type=password]:not(:focus):valid~.floating-label {
     color: #ffffff;
 }
 
-.form__input-group:focus-within .floating-label,
- input:not(:focus):valid~.floating-label {
-    padding: 2px;
-    top: 8px;
-    bottom: 10px;
-    left: 10px;
-    font-size: 11px;
-    opacity: 1;
-    color: #ffffff;
-}
 
 .floating-label {
   position: absolute;
@@ -113,6 +103,8 @@ input[type=password]:not(:focus):valid~.floating-label {
     font-size: large;
     color: #6c757d;
   }
+
+#togglePassword {display: none}
 
 #togglePassword:hover {
     color: #ffffff;
@@ -210,33 +202,30 @@ input[type=password]:not(:focus):valid~.floating-label {
 
 
 /* MODAL */
-.modal-content {
-    justify-content: center;
-    font-size:calc(18px + 0.5vw);
-    height: 80vh;
-    width: calc(500px + 10vw);
-    background-color: darkblue;
-    color: #FFFFFF;
-}
-
-.modal-title {
-    font-size:calc(15px + 1.5vw);
-}
-
-.modal-answer {
-    display: none;
-}
-
-#question-timer {
-    color: yellow;
-    margin-left: auto;
-}
-
-.message {
-    display: none;
-    font-size: 16px;
-    text-align: left;
-}
+#myModal
+    .modal-content {
+        justify-content: center;
+        font-size:calc(18px + 0.5vw);
+        height: 80vh;
+        width: calc(500px + 10vw);
+        background-color: darkblue;
+        color: #FFFFFF;
+    }
+    .modal-title {
+        font-size:calc(15px + 1.5vw);
+    }
+    .modal-answer {
+        display: none;
+    }
+    #question-timer {
+        color: yellow;
+        margin-left: auto;
+    }
+    .message {
+        display: none;
+        font-size: 16px;
+        text-align: left;
+    }
 
 
 
