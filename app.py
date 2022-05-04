@@ -3,26 +3,37 @@ from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, select, distinct
-
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from flask_login import (
+    UserMixin,
+    login_user,
+    LoginManager,
+    login_required,
+    current_user,
+    logout_user,
+)
 import random
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # Generate secret key for Flask App configuration
 # print(os.urandom(24))
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 Bootstrap(app)
 
+
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///jeopardy.db"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///jeopardy.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
-login_manager.init_app (app)
+login_manager.init_app(app)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -33,20 +44,21 @@ def load_user(user_id):
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String (100), unique=True, nullable=False)
-    email = db.Column(db.String (100), unique=True, nullable=False)
-    password = db.Column(db.String (100), nullable=False)
+    username = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     # Attributes below will be updated in later version that includes multiplayer online gameplay
     games_won = db.Column(db.Integer, nullable=False)
     games_played = db.Column(db.Integer, nullable=False)
     total_winnings = db.Column(db.Integer, nullable=False)
+
 
 # db.create_all()
 
 ## MUST ALSO CREATE MODELS FOR EXISTING TABLES WITHIN DB
 class Category(db.Model):
     __tablename__ = "categories"
-    category = db.Column(db.String (255), primary_key=True, nullable=False)
+    category = db.Column(db.String(255), primary_key=True, nullable=False)
     num_questions = db.Column(db.Integer, nullable=False)
 
 
@@ -58,36 +70,38 @@ class Question(db.Model):
     category = db.Column(db.String(255), nullable=False)
 
 
-
-@app.route('/')
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/login', methods=["GET", "POST"])
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form.get('username')
-        password = request.form.get('password')
+        username = request.form.get("username")
+        password = request.form.get("password")
         print(username, password)
-        return redirect(url_for('home'))
-    return render_template('login.html')
+        return redirect(url_for("home"))
+    return render_template("login.html")
 
-@app.route('/register')
+
+@app.route("/register")
 def register():
-    return render_template('register.html')
+    return render_template("register.html")
 
-@app.route('/logout')
+
+@app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('/'))
+    return redirect(url_for("/"))
 
 
-@app.route('/new_game')
+@app.route("/new_game")
 def new_game():
-    return render_template('game.html')
+    return render_template("game.html")
 
 
-@app.route('/start_game', methods=['GET', 'POST'])
+@app.route("/start_game", methods=["GET", "POST"])
 def start_game():
     # Retrieve list of answers to autocomplete the answerInput filter
     answer_query = db.session.execute(select(Question.answer).limit(500))
@@ -95,11 +109,11 @@ def start_game():
 
     # Join the tables to search for categories
     cat_query = db.session.execute(
-        select(Question.question, Question.answer, Category.category).
-        join(Category, Question.category == Category.category).
-        order_by(func.random()).
-        group_by(Category.category).
-        limit(6)
+        select(Question.question, Question.answer, Category.category)
+        .join(Category, Question.category == Category.category)
+        .order_by(func.random())
+        .group_by(Category.category)
+        .limit(6)
     )
     unique_categories = [row.category for row in cat_query]
 
@@ -114,25 +128,22 @@ def start_game():
     # Add questions for each category
     for i in range(len(unique_categories)):
         question_query = db.session.execute(
-            select(Question.question, Question.answer, Question.category).
-            where(Question.category == unique_categories[i]).
-            limit(5)
+            select(Question.question, Question.answer, Question.category)
+            .where(Question.category == unique_categories[i])
+            .limit(5)
         )
         # Create separate list because returned query object is not iterable
-        questions = [{'question': row.question, 'answer': row.answer} for row in question_query]
+        questions = [
+            {"question": row.question, "answer": row.answer} for row in question_query
+        ]
         for j in range(len(questions)):
-            game_board[j+1][i] = questions[j]
-            if questions[j]['answer'] not in answers_list:
-                answers_list.append(questions[j]['answer'])
+            game_board[j + 1][i] = questions[j]
+            if questions[j]["answer"] not in answers_list:
+                answers_list.append(questions[j]["answer"])
 
-    game_data = {
-        'board': game_board,
-        'filter_answers': answers_list
-    }
+    game_data = {"board": game_board, "filter_answers": answers_list}
     return jsonify(game_data)  # serialize and use JSON headers
 
 
-
-
 if __name__ == "__main__":
-    app.run (host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0", port=5000)
