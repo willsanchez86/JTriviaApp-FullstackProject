@@ -5,13 +5,13 @@
     <form action="{{ url_for('login') }}" method="post" id="login" >
         <h1 class="form__title">Login</h1>
         <div class="form__input-group">
-            <input type="text" class="form__input" name="username" id="username" required>
+            <input onBlur="validateUser(this)" type="text" class="form__input" name="username" id="username" required>
             <span class="floating-label">Username</span>
             <p class="message" id="userMessage">Please Enter a Value</p>
         </div>
         <div class="form__input-group">
             <div class="input-group">
-                <input type="password" class="form__input" name="password" id="password" required>
+                <input onBlur="validatePassword(this)" type="password" class="form__input" name="password" id="password" required>
                 <span class="floating-label" id="passwordLabel">Password</span>
                 <div class="input-group-addon">
                     <i class="fa-solid fa-eye" id="togglePassword"></i>
@@ -19,7 +19,7 @@
             </div>
             <p class="message" id="passwordMessage">Please Enter a Value</p>
         </div>
-        <button class="form__button" type="submit">Continue</button>
+        <button class="form__button" type="submit" disabled>Continue</button>
         <p class="form__text text-center">
             <a href="#" class="form__link">Forgot your password?</a>
         </p>
@@ -30,29 +30,6 @@
     </form>
 </div>
 
-<script>
-    var inputs = document.querySelectorAll('.form__input');
-    inputs.forEach(function(entry) {
-        entry.addEventListener('blur', checkInput);
-    });
-
-    // Returns error input value is empty upon visitng
-    function checkInput(e) {
-        const entry = e.target;
-        let message;
-        if(entry.id === 'username') {
-            message = document.getElementById('userMessage');
-        } else if(entry.id === 'password') {
-            message = document.getElementById('passwordMessage');
-        }
-
-        if(entry.value === '') {
-            message.style.display = 'block';
-            message.style.color = '#cc3333';
-        } else {
-        message.style.display = 'none';
-        }
-    }
-</script>
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 
 

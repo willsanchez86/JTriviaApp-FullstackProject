@@ -2,7 +2,7 @@ body {
   font-size: 100%;
   height: 100vh;
   background-color: black;
-  color: $ffffff;
+  color: #ffffff;
   --color-primary: #009579;
   --color-primary-dark: #007f67;
   --color-secondary: #2580cf;
@@ -101,7 +101,8 @@ input[type=password]:not(:focus):valid~.floating-label {
     cursor: pointer;
     position: absolute;
     font-size: large;
-    color: #6c757d;
+    /* color: #6c757d; */
+    color: #ffffff;
   }
 
 #togglePassword {display: none}
@@ -126,6 +127,10 @@ input[type=password]:not(:focus):valid~.floating-label {
 
 .form__button:hover {
     background: var(--color-primary-dark);
+}
+
+.form__button:disabled {
+    opacity: 20%;
 }
 
 .form__text {
@@ -169,7 +174,7 @@ input[type=password]:not(:focus):valid~.floating-label {
 
 .category span {
   color: white;
-  font-size: calc(5px + 0.7vw + 0.7vh);
+  font-size: calc(5px + 0.6vw + 0.7vh);
   font-weight: bold;
   transform: translateY(0%);
   overflow: hidden;
@@ -184,7 +189,7 @@ input[type=password]:not(:focus):valid~.floating-label {
   padding: 0.2rem;
   justify-self: center;
   background-color: darkblue;
-  width: 100%
+  width: 100%;
   height: 12vh;
 }
 
@@ -196,7 +201,7 @@ input[type=password]:not(:focus):valid~.floating-label {
   width: 100%;
   background-color: darkblue;
   color: yellow;
-  font-size: 4vw;
+  font-size: 3vw;
   font-weight: bold;
 }
 
