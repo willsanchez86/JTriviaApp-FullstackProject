@@ -74,6 +74,8 @@ async function playGame() {
                     setMessage(message, `Out of Time! The correct answer is ${modalAnswer.textContent}`, 'red');
                     updateScore(subtract);
                     answerInput.disabled = true;
+                    currentSquare.disabled = true;
+                    currentSquare.style.opacity = 0;
                     clearInterval(timer);
                 }
             }, 1000);

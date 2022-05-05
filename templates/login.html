@@ -4,6 +4,13 @@
 <div class="form-center">
     <form action="{{ url_for('login') }}" method="post" id="login" >
         <h1 class="form__title">Login</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p style="color: red; text-align: center;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <div class="form__input-group">
             <input onBlur="validateUser(this)" type="text" class="form__input" name="username" id="username" required>
             <span class="floating-label">Username</span>

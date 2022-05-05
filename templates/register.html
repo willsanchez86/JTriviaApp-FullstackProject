@@ -30,6 +30,13 @@
                 <li id="special">Must contain at least one special character ($, %, @...)</li>
                 <li id="min8">Must be at least 8 characters long</li>
             </ul>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
         <button class="form__button" type="submit" disabled>Create Account</button>
         <p class="form__text text-center">
