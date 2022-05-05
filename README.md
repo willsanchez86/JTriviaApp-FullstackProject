@@ -1,6 +1,5 @@
 # JEOPARDY!
 
-JavaScript JEOPARDY! is a single-page web app in which you can, you guessed it, play a round of JEOPARDY!
 
 ## Usage
 
