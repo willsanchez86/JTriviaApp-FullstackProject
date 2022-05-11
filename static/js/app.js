@@ -27,7 +27,6 @@ async function playGame() {
     // Storing response and converting to JSON
     const response = await fetch('/start_game');
     var gameData = await response.json();
-    console.log(gameData['board']);
     // Store Game in Local Storage
     storeGameInLocalStorage(gameData);
 
