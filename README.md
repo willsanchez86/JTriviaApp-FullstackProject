@@ -1,11 +1,18 @@
 # JEOPARDY!
-* cd to the directory where requirements.txt is located
-* activate your virtualenv
-* run: pip install -r requirements.txt in your shell
+
 
 ## Usage
 
 ### Installation And Startup
+* cd to the directory where requirements.txt is located
+* activate your virtualenv
+* run: pip install -r requirements.txt in your shell
+* Setup Flask App:
+  * On Command Prompt/Bash:
+      run: set FLASK_APP=main.py
+  * On powershell
+      run: $env:FLASK_APP = "main.py"
+* run: flask run
 
 
 ### Gameplay
