@@ -16,7 +16,19 @@ body {
             color: white;
         }
 
+footer {
+  font-size: 80%;
+  margin-bottom: 0;
+  background-color: black;
+  color: #ffffff;
+}
 
+.flex-wrapper {
+    display: flex;
+    min-height: 90vh;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 /*------------------------LOGIN.HTML. REGISTER.HTML------------------------*/
 
 .form-center {
