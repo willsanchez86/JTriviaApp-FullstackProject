@@ -10,6 +10,9 @@ var answerInput = document.getElementById('myInput');
 var modalTimer = document.querySelector('#question-timer span');
 var filter = document.getElementById('filter');
 var start_btn = document.querySelector(".start_round");
+var end_btn = document.querySelector('.end_round');
+var qbuttons = document.querySelectorAll('.qbutton');
+
 
 localStorage.setItem('score', '0');
 
@@ -20,18 +23,17 @@ start_btn.addEventListener('click', playGame);
 // Check Modal Answer
 document.getElementById('answerForm').addEventListener('submit', checkAnswer);
 
-
-
 async function playGame() {
 
-    // Disable start_round button and Enable End Game Button
-    start_btn.disabled = true;
-    start_btn.style.display = 'none';
-    
-    const end_btn = document.querySelector('.end_round');
-    end_btn.disabled = false;
-    end_btn.style.display = 'block';
+    // Switch Game Buttons
+    toggleStartEndBtn()
 
+    // End current Game if clicked
+    document.querySelector('.end_round').addEventListener('click', function() {
+        if(confirm('Are you sure you want to end current game? All progress will be lost!')) {
+            document.location.reload();
+        }
+    })
 
     // Storing response and converting to JSON
     const response = await fetch('/start_game');
@@ -109,6 +111,25 @@ async function playGame() {
 }
 
 //--------------------GAME FUNCTIONS--------------------//
+
+// Button Toggle
+function toggleStartEndBtn() {
+    if(!start_btn.disabled) {
+        // Disable start_round button and Enable End Game Button
+        start_btn.disabled = true;
+        start_btn.style.display = 'none';
+        
+        end_btn.disabled = false;
+        end_btn.style.display = 'block';
+    } else {
+        // Opposite
+        end_btn.disabled = true;
+        end_btn.style.display = 'none';
+
+        start_btn.disabled = false;
+        start_btn.style.display = 'block';
+    }
+}
 
 // Store the Game in Local Storage
 function storeGameInLocalStorage (gameData){
@@ -189,6 +210,8 @@ function updateScore(func) {
     let newTotal = func(totalScore, reward);
     document.querySelector('#player-score').textContent = `${newTotal}`;
     localStorage.setItem('score', newTotal);
+    // Check if no questions remain
+    remainingQuestions();
 }
 
 // Helper Functions to calculate new score
@@ -200,8 +223,25 @@ function subtract(a, b) {
     return a - b;
 }
 
+function remainingQuestions() {
+    let answered = 0;
 
+    // Iterate over nodelist and count how many questions were answererd
+    for(let i = 0; i < qbuttons.length; i++) {
+        if(qbuttons.item(i).disabled === true) {
+            answered++;
+        }
+    }
 
+    if(answered === 29) {
+        gameComplete();
+    }
+}
+
+// Game Finished Seequence
+function gameComplete() {
+
+}
 
 
 /***************************************************************************************

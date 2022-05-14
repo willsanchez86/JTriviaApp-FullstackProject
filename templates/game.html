@@ -1,16 +1,14 @@
 {% include "header.html" %}
-<!--Temporary Placement Open-->
+
+<button class="start_round btn btn-primary mt-3">START NEW GAME</button>
+<!-- <a class="start_round mx-auto" href="#">START NEW GAME</a> -->
+<button class="end_round btn btn-danger mt-3" style="display: none;" disabled>END GAME</button>
 <div class="container">
-    <div class="row mt-3">
-        <button class="start_round btn btn-primary mx-auto">START NEW GAME</button>
-        <!-- <a class="start_round mx-auto" href="#">START NEW GAME</a> -->
-        <button class="end_round btn btn-danger mx-auto" style="display: none;" disabled>END GAME</button>
-    </div>
     <div class="row">
-        <h1 class="score mx-auto">Score: $<span id="player-score">0</span></h1>
+        <h1 class="score mx-auto mb-2">Score: $<span id="player-score">0</span></h1>
     </div>
 </div>
-<!--Temporary Placement Close-->
+
 
 <div class="flex-wrapper">
     <body>   
