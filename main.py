@@ -96,7 +96,7 @@ def login():
             return redirect(url_for("login"))
         else:
             login_user(user)
-            flash("Log Successful!")
+            flash(f"Welcome {username}!")
             return redirect(url_for("home"))
 
     return render_template("login.html", current_user=current_user)

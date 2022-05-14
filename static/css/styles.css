@@ -10,29 +10,63 @@ body {
 
 .navbar {
     background-color: black;
+    border-bottom: 1px solid #dddddd;
 }
 
 .navbar-dark .navbar-nav .nav-link {
             color: white;
         }
 
+
 footer {
+  width: 100%;
   font-size: 80%;
   margin-bottom: 0;
   background-color: black;
+  border-top: 1px solid #dddddd;
   color: #ffffff;
 }
 
 .flex-wrapper {
-    display: flex;
-    min-height: 90vh;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+  display: flex;
+  min-height: 110vh;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: black;
+}
+
+
+/* LANDING PAGE FLOATING HEADER */
+.animated {
+  color: white;
+  font-size: 5rem;
+  font-family: sans-serif;
+  text-align: center;
+  line-height: 70vh;
+}
+
+span.letter {
+  opacity: 0;
+  transition: all 1s ease;
+  transform: translateY(50px);
+  display: inline-block;
+}
+
+span.fades {
+  opacity: 1;
+  transform: translateY(0px);
+  color: var(--color-secondary);
+}
+
+.signup {
+  transform: translateY(-20vh);
+  display: none;
+}
+
 /*------------------------LOGIN.HTML. REGISTER.HTML------------------------*/
 
 .form-center {
-    margin-top: 5rem;
+    margin-top: 3rem;
     margin-left: auto;
     margin-right: auto;
     width: 320px;
@@ -67,7 +101,6 @@ footer {
 }
 
 
-/* ----------------------------------- */
 input[type=text]:focus~ .floating-label,
 input[type=text]:not(:focus):valid~.floating-label {
     padding: 2px;
@@ -104,7 +137,6 @@ input[type=password]:not(:focus):valid~.floating-label {
   position: relative; /*  make label relate to div  */
   padding-top: 10px;  /*  make space for label      */
 }
-/* ----------------------------------- */
 
 
 .input-group-addon i {
@@ -186,7 +218,7 @@ input[type=password]:not(:focus):valid~.floating-label {
 
 .category span {
   color: white;
-  font-size: calc(5px + 0.6vw + 0.7vh);
+  font-size: calc(5px + 0.6vw + 0.5vh);
   font-weight: bold;
   transform: translateY(0%);
   overflow: hidden;

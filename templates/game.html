@@ -1,218 +1,228 @@
 {% include "header.html" %}
 <!--Temporary Placement Open-->
-<a class="start_round" href="#">START ROUND</a>
-<h1 class="score">$<span id="player-score">0</span></h1>
-<!--Temporary Placement Close-->
-
-
-<div class="container" id="game-board">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalTitle">Modal title</h5>
-                    <h5 class="modal-title" id="question-timer">:<span>30</span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                        <p class="modal-question">Value Here</p>
-                        <p class="modal-answer">Value Here</p>
-                </div>
-
-                <form autocomplete="off" id="answerForm">
-                    <div class="autocomplete" style="width:300px;">
-                      <input id="myInput" type="text" name="myAnswer" placeholder="Enter your Answer">
-                        <p class="message" id="modalMessage">You've guessed correctly!</p>
-                    </div>
-                    <input type="submit" id="submit">
-                </form>
-
-<!--                <div class="modal-footer">-->
-<!--                </div>-->
-            </div>
-        </div>
+<div class="container">
+    <div class="row mt-3">
+        <button class="start_round btn btn-primary mx-auto">START NEW GAME</button>
+        <!-- <a class="start_round mx-auto" href="#">START NEW GAME</a> -->
+        <button class="end_round btn btn-danger mx-auto" style="display: none;" disabled>END GAME</button>
     </div>
-
     <div class="row">
-        <div class="col-2 category"><span>N/A</span></div>
-        <div class="col-2 category"><span>N/A</span></div>
-        <div class="col-2 category"><span>N/A</span></div>
-        <div class="col-2 category"><span>N/A</span></div>
-        <div class="col-2 category"><span>N/A</span></div>
-        <div class="col-2 category"><span>N/A</span></div>
-    </div>
-    <!-- Row of Questions -->
-    <div class="row">
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="1"
-                    data-column="0" data-backdrop="static" data-keyboard="false">$200
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="1"
-                    data-column="1" data-backdrop="static" data-keyboard="false">$200
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="1"
-                    data-column="2" data-backdrop="static" data-keyboard="false">$200
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="1"
-                    data-column="3" data-backdrop="static" data-keyboard="false">$200
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="1"
-                    data-column="4" data-backdrop="static" data-keyboard="false">$200
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="1"
-                    data-column="5" data-backdrop="static" data-keyboard="false">$200
-            </button>
-        </div>
-    </div>
-    <!-- Row of Questions -->
-    <div class="row">
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="2"
-                    data-column="0" data-backdrop="static" data-keyboard="false">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="2"
-                    data-column="1" data-backdrop="static" data-keyboard="false">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="2"
-                    data-column="2" data-backdrop="static" data-keyboard="false">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="2"
-                    data-column="3" data-backdrop="static" data-keyboard="false">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="2"
-                    data-column="4" data-backdrop="static" data-keyboard="false">$400
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="2"
-                    data-column="5" data-backdrop="static" data-keyboard="false">$400
-            </button>
-        </div>
-    </div>
-    <!-- Row of Questions -->
-    <div class="row">
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="3"
-                    data-column="0" data-backdrop="static" data-keyboard="false">$600
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="3"
-                    data-column="1" data-backdrop="static" data-keyboard="false">$600
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="3"
-                    data-column="2" data-backdrop="static" data-keyboard="false">$600
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="3"
-                    data-column="3" data-backdrop="static" data-keyboard="false">$600
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="3"
-                    data-column="4" data-backdrop="static" data-keyboard="false">$600
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="3"
-                    data-column="5" data-backdrop="static" data-keyboard="false">$600
-            </button>
-        </div>
-    </div>
-    <!-- Row of Questions -->
-    <div class="row">
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="4"
-                    data-column="0" data-backdrop="static" data-keyboard="false">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="4"
-                    data-column="1" data-backdrop="static" data-keyboard="false">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="4"
-                    data-column="2" data-backdrop="static" data-keyboard="false">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="4"
-                    data-column="3" data-backdrop="static" data-keyboard="false">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="4"
-                    data-column="4" data-backdrop="static" data-keyboard="false">$800
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="4"
-                    data-column="5" data-backdrop="static" data-keyboard="false">$800
-            </button>
-        </div>
-    </div>
-    <!-- Row of Questions -->
-    <div class="row">
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="5"
-                    data-column="0" data-backdrop="static" data-keyboard="false">$1000
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="5"
-                    data-column="1" data-backdrop="static" data-keyboard="false">$1000
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="5"
-                    data-column="2" data-backdrop="static" data-keyboard="false">$1000
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="5"
-                    data-column="3" data-backdrop="static" data-keyboard="false">$1000
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="5"
-                    data-column="4" data-backdrop="static" data-keyboard="false">$1000
-            </button>
-        </div>
-        <div class="col-2 question">
-            <button type="button" class="qbutton" data-row="5"
-                    data-column="5" data-backdrop="static" data-keyboard="false">$1000
-            </button>
-        </div>
+        <h1 class="score mx-auto">Score: $<span id="player-score">0</span></h1>
     </div>
 </div>
+<!--Temporary Placement Close-->
 
+<div class="flex-wrapper">
+    <body>   
+        <div class="container" id="game-board">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalTitle">Modal title</h5>
+                            <h5 class="modal-title" id="question-timer">:<span>30</span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                <p class="modal-question">Value Here</p>
+                                <p class="modal-answer">Value Here</p>
+                        </div>
 
-{% include "footer.html" %}
+                        <form autocomplete="off" id="answerForm">
+                            <div class="autocomplete" style="width:300px;">
+                            <input id="myInput" type="text" name="myAnswer" placeholder="Enter your Answer">
+                                <p class="message" id="modalMessage">You've guessed correctly!</p>
+                            </div>
+                            <input type="submit" id="submit">
+                        </form>
+
+        <!--                <div class="modal-footer">-->
+        <!--                </div>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-2 category"><span>N/A</span></div>
+                <div class="col-2 category"><span>N/A</span></div>
+                <div class="col-2 category"><span>N/A</span></div>
+                <div class="col-2 category"><span>N/A</span></div>
+                <div class="col-2 category"><span>N/A</span></div>
+                <div class="col-2 category"><span>N/A</span></div>
+            </div>
+            <!-- Row of Questions -->
+            <div class="row">
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="1"
+                            data-column="0" data-backdrop="static" data-keyboard="false">$200
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="1"
+                            data-column="1" data-backdrop="static" data-keyboard="false">$200
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="1"
+                            data-column="2" data-backdrop="static" data-keyboard="false">$200
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="1"
+                            data-column="3" data-backdrop="static" data-keyboard="false">$200
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="1"
+                            data-column="4" data-backdrop="static" data-keyboard="false">$200
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="1"
+                            data-column="5" data-backdrop="static" data-keyboard="false">$200
+                    </button>
+                </div>
+            </div>
+            <!-- Row of Questions -->
+            <div class="row">
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="2"
+                            data-column="0" data-backdrop="static" data-keyboard="false">$400
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="2"
+                            data-column="1" data-backdrop="static" data-keyboard="false">$400
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="2"
+                            data-column="2" data-backdrop="static" data-keyboard="false">$400
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="2"
+                            data-column="3" data-backdrop="static" data-keyboard="false">$400
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="2"
+                            data-column="4" data-backdrop="static" data-keyboard="false">$400
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="2"
+                            data-column="5" data-backdrop="static" data-keyboard="false">$400
+                    </button>
+                </div>
+            </div>
+            <!-- Row of Questions -->
+            <div class="row">
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="3"
+                            data-column="0" data-backdrop="static" data-keyboard="false">$600
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="3"
+                            data-column="1" data-backdrop="static" data-keyboard="false">$600
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="3"
+                            data-column="2" data-backdrop="static" data-keyboard="false">$600
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="3"
+                            data-column="3" data-backdrop="static" data-keyboard="false">$600
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="3"
+                            data-column="4" data-backdrop="static" data-keyboard="false">$600
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="3"
+                            data-column="5" data-backdrop="static" data-keyboard="false">$600
+                    </button>
+                </div>
+            </div>
+            <!-- Row of Questions -->
+            <div class="row">
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="4"
+                            data-column="0" data-backdrop="static" data-keyboard="false">$800
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="4"
+                            data-column="1" data-backdrop="static" data-keyboard="false">$800
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="4"
+                            data-column="2" data-backdrop="static" data-keyboard="false">$800
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="4"
+                            data-column="3" data-backdrop="static" data-keyboard="false">$800
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="4"
+                            data-column="4" data-backdrop="static" data-keyboard="false">$800
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="4"
+                            data-column="5" data-backdrop="static" data-keyboard="false">$800
+                    </button>
+                </div>
+            </div>
+            <!-- Row of Questions -->
+            <div class="row">
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="5"
+                            data-column="0" data-backdrop="static" data-keyboard="false">$1000
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="5"
+                            data-column="1" data-backdrop="static" data-keyboard="false">$1000
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="5"
+                            data-column="2" data-backdrop="static" data-keyboard="false">$1000
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="5"
+                            data-column="3" data-backdrop="static" data-keyboard="false">$1000
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="5"
+                            data-column="4" data-backdrop="static" data-keyboard="false">$1000
+                    </button>
+                </div>
+                <div class="col-2 question">
+                    <button type="button" class="qbutton" data-row="5"
+                            data-column="5" data-backdrop="static" data-keyboard="false">$1000
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {% include "footer.html" %}
+    </body>
+</div>
 
     <!-- Javascript  -->
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>

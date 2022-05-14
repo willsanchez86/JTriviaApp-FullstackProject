@@ -9,20 +9,29 @@ var modalAnswer = document.querySelector('.modal-answer');
 var answerInput = document.getElementById('myInput');
 var modalTimer = document.querySelector('#question-timer span');
 var filter = document.getElementById('filter');
-
+var start_btn = document.querySelector(".start_round");
 
 localStorage.setItem('score', '0');
 
 //--------------------Event Listeners--------------------//
 
 // Start New Game
-document.querySelector(".start_round").addEventListener('click', playGame);
+start_btn.addEventListener('click', playGame);
 // Check Modal Answer
 document.getElementById('answerForm').addEventListener('submit', checkAnswer);
 
 
 
 async function playGame() {
+
+    // Disable start_round button and Enable End Game Button
+    start_btn.disabled = true;
+    start_btn.style.display = 'none';
+    
+    const end_btn = document.querySelector('.end_round');
+    end_btn.disabled = false;
+    end_btn.style.display = 'block';
+
 
     // Storing response and converting to JSON
     const response = await fetch('/start_game');
@@ -53,7 +62,7 @@ async function playGame() {
             message.style.display = 'none';
             modalTimer.textContent = '30';
             document.getElementById('question-timer').style.color = 'yellow';
-            answerInput.disabled =false;
+            answerInput.disabled = false;
 
 
             // Display Modal Question
@@ -222,7 +231,8 @@ function autocomplete(inp, arr) {
         /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
         /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+        // ! FOLLOWING LINE MODIFIED TO INCLUE ALL MATCHING LIST ITEMS, NOT JUST THE FIRST LETTER
+        if ((arr[i].toUpperCase()).includes(val.toUpperCase())) {
             /*create a DIV element for each matching element:*/
             b = document.createElement("DIV");
             /*make the matching letters bold:*/

@@ -1,15 +1,89 @@
 {% include "header.html" %}
 
-<div class="flex-wrapper">
-    <div class="container">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                    <h3>{{ message }}</h3>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-    </div>
-
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <h5>{{ message }}</h3>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<div class="flex-wrapper" id="page-container">
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    {% if not current_user.is_authenticated: %}
+                    <h1 class="animated">
+                        J TRIVIA
+                    </h1>
+                    <p class="signup">
+                        <a href="{{ url_for('register') }}" class="form__link">Sign Up</a>
+                        <span>and become a contestant!</span>
+                    </p>
+                    {% else: %}
+                    <table class="table">
+                        <h4 class="my-4">Current Leaderboard</h4>
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Contestant</th>
+                            <th scope="col">Highest Score $</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </body> 
     {% include "footer.html" %}
 </div>
+
+<script>
+    const text = document.querySelector('.animated')
+    const strText = text.textContent;
+    const splitText = strText.split('');
+    text.textContent = '';
+
+    splitText.forEach(function(char) {
+        text.innerHTML += `<span class='letter'>${char}</span>`;
+    })
+
+    let char = 0;
+    let timer = setInterval(onTick, 50);
+
+    function onTick() {
+        const span = text.querySelectorAll('span')[char]
+        span.classList.add('fades');
+        char++;
+
+        if(char === splitText.length) {
+            complete();
+            return;
+        }
+    }
+
+    function complete() {
+        clearInterval(timer);
+        timer = null;
+        document.querySelector('.signup').style.display = 'block';
+    }
+
+</script>
