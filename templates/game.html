@@ -1,14 +1,15 @@
 {% include "header.html" %}
 
 <button class="start_round btn btn-primary mt-3">START NEW GAME</button>
-<!-- <a class="start_round mx-auto" href="#">START NEW GAME</a> -->
 <button class="end_round btn btn-danger mt-3" style="display: none;" disabled>END GAME</button>
+
 <div class="container">
     <div class="row">
         <h1 class="score mx-auto mb-2">Score: $<span id="player-score">0</span></h1>
     </div>
 </div>
 
+<div id="game-over"></div>
 
 <div class="flex-wrapper">
     <body>   
@@ -20,7 +21,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="myModalTitle">Modal title</h5>
                             <h5 class="modal-title" id="question-timer">:<span>30</span></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" disabled>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -29,7 +30,7 @@
                                 <p class="modal-answer">Value Here</p>
                         </div>
 
-                        <form autocomplete="off" id="answerForm">
+                        <form autocomplete="off" id="answerForm" onsubmit="return false">
                             <div class="autocomplete" style="width:300px;">
                             <input id="myInput" type="text" name="myAnswer" placeholder="Enter your Answer">
                                 <p class="message" id="modalMessage">You've guessed correctly!</p>
@@ -221,6 +222,7 @@
         {% include "footer.html" %}
     </body>
 </div>
+
 
     <!-- Javascript  -->
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>

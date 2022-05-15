@@ -23,15 +23,17 @@ start_btn.addEventListener('click', playGame);
 // Check Modal Answer
 document.getElementById('answerForm').addEventListener('submit', checkAnswer);
 
+
 async function playGame() {
 
     // Switch Game Buttons
     toggleStartEndBtn()
 
-    // End current Game if clicked
+    // TODO: End current Game if clicked
     document.querySelector('.end_round').addEventListener('click', function() {
         if(confirm('Are you sure you want to end current game? All progress will be lost!')) {
-            document.location.reload();
+            // document.location.reload();
+            gameComplete();
         }
     })
 
@@ -65,6 +67,7 @@ async function playGame() {
             modalTimer.textContent = '30';
             document.getElementById('question-timer').style.color = 'yellow';
             answerInput.disabled = false;
+            document.querySelector('.close').disabled = true;
 
 
             // Display Modal Question
@@ -90,17 +93,20 @@ async function playGame() {
                 }
             }, 1000);
 
-            // Clear timer interval when modal is closed
-            document.querySelector('.close').addEventListener('click', function() {
-                clearInterval(timer);
-            })
+            // // Clear timer interval when modal is closed
+            // document.querySelector('.close').addEventListener('click', function() {
+            //     clearInterval(timer);
+            //     // currentSquare = null;
+            // })
 
 
             // Form Submission
             let modalForm = document.querySelector('#answerForm');
             let newCheckAnswer = function() { checkAnswer(e, currentSquare); };
+
             modalForm.addEventListener('submit', function(){
-                if(answerInput.value !== '') {
+                if(answerInput.value !== '' ) {
+                    document.querySelector('.close').disabled = false;
                     currentSquare.style.opacity = 0;
                     currentSquare.disabled = true;
                     clearInterval(timer);
@@ -238,11 +244,43 @@ function remainingQuestions() {
     }
 }
 
-// Game Finished Seequence
-function gameComplete() {
+// Game Finished --> Sends asynchronous request to backend for updating Data
+async function gameComplete() {
+    let finalScore = localStorage.getItem('score');
 
+    await fetch(`/finish_game/${finalScore}`)
+        .then(response => response.json())
+        .then(data => {
+            if(data) {
+                // TODO:
+                gameOverMessage();
+                // window.location.replace('/');
+            }
+        })
+        .catch(err => console.log(err));
 }
 
+
+function gameOverMessage() {
+    // Clear current body
+    document.querySelector('.score').style.display = 'none';
+    document.getElementById('game-board').style.display = 'none';
+    document.querySelector('.end_round').style.display = 'none';
+
+    // Generate and Display Game Over Message
+    document.getElementById('game-over').innerHTML = `
+    <div class="row"style="margin-top: 10vh;">
+        <h1 class="mx-auto">GAME OVER</h1>
+    </div>
+    <div class="row">
+        <h3 class="mx-auto">Would you like to Play Again?</h3>
+    </div>
+    <div class="row" style="margin-bottom: 60vh;">
+        <button class="start_round btn btn-primary mx-auto mt-3" onclick="document.location.reload()">START NEW GAME</button>
+        <button class="end_round btn btn-danger mx-auto mt-3" onclick="window.location.replace('/')">END GAME</button>
+    </div>
+    `;
+}
 
 /***************************************************************************************
 *    Title: <title of program/source code>

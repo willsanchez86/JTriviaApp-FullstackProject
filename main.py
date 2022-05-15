@@ -80,7 +80,16 @@ class Question(db.Model):
 
 @app.route("/")
 def home():
-    return render_template("index.html", current_user=current_user)
+    # Query for highest scores in db
+    leaderboard = db.session.execute(
+        select(User.username, User.total_winnings_USD)
+        .order_by(User.total_winnings_USD.desc())
+        .limit(5)
+    )
+
+    leaders = [(row.username, row.total_winnings_USD) for row in leaderboard]
+
+    return render_template("index.html", current_user=current_user, leaders=leaders)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -201,6 +210,21 @@ def start_game():
 
     game_data = {"board": game_board, "filter_answers": answers_list}
     return jsonify(game_data)  # serialize and use JSON headers
+
+
+@app.route("/finish_game/<string:final_score>", methods=["GET", "POST"])
+@login_required
+def finish_game(final_score):
+
+    final_score = int(final_score)
+
+    if current_user.total_winnings_USD < final_score:
+        current_user.total_winnings_USD = final_score
+        db.session.commit()
+
+    response = {"message": "Success"}
+
+    return jsonify(response)
 
 
 if __name__ == "__main__":
