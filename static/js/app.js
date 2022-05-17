@@ -29,11 +29,9 @@ async function playGame() {
     // Switch Game Buttons
     toggleStartEndBtn()
 
-    // TODO: End current Game if clicked
     document.querySelector('.end_round').addEventListener('click', function() {
         if(confirm('Are you sure you want to end current game? All progress will be lost!')) {
-            // document.location.reload();
-            gameComplete();
+            document.location.reload();
         }
     })
 
@@ -90,15 +88,9 @@ async function playGame() {
                     currentSquare.disabled = true;
                     currentSquare.style.opacity = 0;
                     clearInterval(timer);
+                    document.querySelector('.close').disabled = false;
                 }
             }, 1000);
-
-            // // Clear timer interval when modal is closed
-            // document.querySelector('.close').addEventListener('click', function() {
-            //     clearInterval(timer);
-            //     // currentSquare = null;
-            // })
-
 
             // Form Submission
             let modalForm = document.querySelector('#answerForm');
@@ -186,7 +178,7 @@ function displayQuestion(currentSquare, categories) {
 
 
 // Submit Answer & Check Results
-function checkAnswer(e, currentSquare) {
+function checkAnswer(e) {
     e.preventDefault();
     const message = document.querySelector('#modalMessage');
     if(answerInput.value === '') {
@@ -252,9 +244,7 @@ async function gameComplete() {
         .then(response => response.json())
         .then(data => {
             if(data) {
-                // TODO:
                 gameOverMessage();
-                // window.location.replace('/');
             }
         })
         .catch(err => console.log(err));
