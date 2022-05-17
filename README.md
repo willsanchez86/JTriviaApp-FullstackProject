@@ -1,5 +1,4 @@
-# JEOPARDY!
-
+# JTrivia!
 
 ## Usage
 
