@@ -246,7 +246,7 @@ function remainingQuestions() {
     }
   }
 
-  if (answered === 3) {
+  if (answered === 29) {
     myModal.hide();
     gameComplete();
   }
