@@ -16,15 +16,26 @@ Based on the popular game show Jeopardy, this application's gameplay was impleme
 
 
 ### Installation And Startup
-* cd to the directory where requirements.txt is located
-* activate your virtualenv
-* run: pip install -r requirements.txt in your shell
-* Setup Flask App:
+```bash
+Clone the repository and change directory into it:
+  
+git clone https://github.com/willsanchez86/JTriviaApp=FullstackProject.git 
+cd JTriviaApp=FullstackProject
+  
+Activate Virtual Environment
+  
+pip install - r requirements.txt
+  
+Setup Flask App:
   * On Command Prompt/Bash:
-      run: set FLASK_APP=main.py
+      set FLASK_APP=main.py
   * On Powershell:
-      run: $env:FLASK_APP = "main.py"
-* run: flask run
+      $env:FLASK_APP = "main.py"
+      
+flask run
+```
+
+
 
 
 ### Usage & Details
